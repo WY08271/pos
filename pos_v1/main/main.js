@@ -23,11 +23,21 @@ function printReceipt(inputs){
             {
                	if(inputs[i] == allItems[x].barcode)
 				{
-					result = result + '名称：' + allItems[x].name + '，数量：' + count + allItems[x].unit + '，单价：' 
-    		                + allItems[x].price.toFixed(2) +'(元)，小计：'
+					var temp = barcodes.indexOf(inputs[i]);
+                    if(temp == 1)
+                    {
+					  result = result + '名称：' + allItems[x].name + '，数量：' + count + allItems[x].unit + '，单价：' 
+    		                 + allItems[x].price.toFixed(2) +'(元)，小计：'
+ 	                         + ((count - 1) * allItems[x].price).toFixed(2) + '(元)\n' ;
+ 	                  total += count * allItems[x].price; 
+ 	                  break;                   	
+                    }
+					  result = result + '名称：' + allItems[x].name + '，数量：' + count + allItems[x].unit + '，单价：' 
+    		                 + allItems[x].price.toFixed(2) +'(元)，小计：'
  	                         + (count * allItems[x].price).toFixed(2) + '(元)\n' ;
- 	                total += count * allItems[x].price;
+ 	                  total += count * allItems[x].price;
     	        }
+    	        alert(result);
             }
 		}
 		else{
@@ -37,6 +47,11 @@ function printReceipt(inputs){
 			{
 				if(string[0] == allItems[x].barcode)
 				{
+					var temp = barcodes.indexOf(inputs[i]);
+					if(temp == 1)
+					{
+						string[1] -= 1;
+					}
 					result = result + '名称：' + allItems[x].name + '，数量：' + string[1] + allItems[x].unit + '，单价：' 
     		                + allItems[x].price.toFixed(2) +'(元)，小计：'
  	                        + (string[1] * allItems[x].price).toFixed(2) + '(元)\n' ;
