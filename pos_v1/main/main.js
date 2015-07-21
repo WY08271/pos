@@ -1,22 +1,12 @@
 function printReceipt(barcodes) {
 
-  var items = [];
   var allItems = loadAllItems();
+  var items = getItems(barcodes,allItems);
 
-  barcodes.forEach(function(barcode) {
-    if(barcode.length > 11){
-      items.push(unlinkBarcode(barcode , allItems));
-    }
-    else{
-      var item = findItem(allItems, barcode );
-      if (item) {
-        items.push(item);
-      }
-    }
-  });
+
+
 
   var cartItems = [];
-
   items.forEach(function (item) {
     var count = 1;
     if( item.count ){
@@ -33,7 +23,6 @@ function printReceipt(barcodes) {
   var  promotions = loadPromotions();
   var promotionsBarcodes = promotions[0].barcodes;
   var discountCartItems = [];
-
   promotionsBarcodes.forEach( function( promotionsBarcode ) {
     var discountCartItem = findDiscountItem( items , promotionsBarcode);
     if( discountCartItem ) {
@@ -51,6 +40,22 @@ function printReceipt(barcodes) {
     '节省：' + formatPrice(getDiscountAmount(discountCartItems)) + '(元)\n' +
     '**********************';
   console.log(receipt);
+}
+
+function getItems(barcodes,allItems) {
+  var items = [];
+  barcodes.forEach(function(barcode) {
+    if(barcode.length > 11){
+      items.push(unlinkBarcode(barcode , allItems));
+    }
+    else{
+      var item = findItem(allItems, barcode );
+      if (item) {
+        items.push(item);
+      }
+    }
+  });
+  return items;
 }
 
 function getDiscountAmount(discountCartItems) {
