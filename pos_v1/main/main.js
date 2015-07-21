@@ -7,7 +7,6 @@ function printReceipt(barcodes) {
   var promotionsBarcodes = getPromotionsBarcodes(promotions);
   var discountCartItems = getDiscountCartItems(promotionsBarcodes , items);
 
-
   var receipt =
     '***<没钱赚商店>收据***\n' +
     getItemsString(cartItems , discountCartItems ) +
@@ -149,7 +148,6 @@ function getAmount(cartItems) {
   });
   return amount;
 }
-
 
 function getItemsString(cartItems , discountCartItems) {
   var itemsString = '';
