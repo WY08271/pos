@@ -2,23 +2,9 @@ function printReceipt(barcodes) {
 
   var allItems = loadAllItems();
   var items = getItems(barcodes,allItems);
+  var cartItems = getCartItems(items);
 
 
-
-
-  var cartItems = [];
-  items.forEach(function (item) {
-    var count = 1;
-    if( item.count ){
-      count = item.count;
-    }
-    var cartItem = findCartItem(cartItems, item.barcode);
-    if (cartItem) {
-      cartItem.count++;
-    } else {
-      cartItems.push({item: item, count: count});
-    }
-  });
 
   var  promotions = loadPromotions();
   var promotionsBarcodes = promotions[0].barcodes;
@@ -40,6 +26,23 @@ function printReceipt(barcodes) {
     '节省：' + formatPrice(getDiscountAmount(discountCartItems)) + '(元)\n' +
     '**********************';
   console.log(receipt);
+}
+
+function getCartItems(items) {
+  var cartItems = [];
+  items.forEach(function (item) {
+    var count = 1;
+    if( item.count ){
+      count = item.count;
+    }
+    var cartItem = findCartItem(cartItems, item.barcode);
+    if (cartItem) {
+      cartItem.count++;
+    } else {
+      cartItems.push({item: item, count: count});
+    }
+  });
+  return cartItems;
 }
 
 function getItems(barcodes,allItems) {
