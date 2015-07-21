@@ -1,15 +1,15 @@
 function printReceipt(items) {
 
   var cartItems = [];
-  for(var i = 0; i < items.length; i++)
-  {
-    var itemOne = findItem(cartItems , items[i]);
-    if(itemOne){
-      itemOne.count++;
-    }else{
-      cartItems.push({item:items[i],count:1});
+
+  items.forEach(function (item) {
+    var cartItem = findCartItem(cartItems, item.barcode);
+    if (cartItem) {
+      cartItem.count++;
+    } else {
+      cartItems.push({item: item, count: 1});
     }
-  }
+  });
 
   var receipt =
     '***<没钱赚商店>收据***\n' +
@@ -17,15 +17,20 @@ function printReceipt(items) {
     '----------------------\n' +
     '总计：' + formatPrice(getAmount(cartItems)) + '(元)\n' +
     '**********************';
-
   console.log(receipt);
 }
 
-function findItem(cartItems , items){
-  for(var i = 0; i < cartItems.length; i++)
-  {
-    if(cartItems[i].item.barcode === items.barcode)
-    {
+function findItem(allItems , barcode){
+  for (var i = 0; i < allItems.length; i++){
+    if(allItems[i].barcode === barcode){
+      return allItems[i];
+    }
+  }
+}
+
+function findCartItem(cartItems, barcode) {
+  for (var i = 0; i < cartItems.length; i++) {
+    if (cartItems[i].item.barcode === barcode) {
       return cartItems[i];
     }
   }
@@ -38,8 +43,8 @@ function getSubTotal(count, price) {
 function getAmount(cartItems) {
   var amount = 0;
 
-  cartItems.forEach(function(cartItem) {
-    amount += getSubTotal(cartItem.count,cartItem.item.price);
+  cartItems.forEach(function (cartItem) {
+    amount += getSubTotal(cartItem.count, cartItem.item.price);
   });
 
   return amount;
@@ -47,8 +52,8 @@ function getAmount(cartItems) {
 
 function getItemsString(cartItems) {
   var itemsString = '';
- //console.log(cartItems.length);
-  cartItems.forEach(function(cartItem) {
+  //console.log(cartItems.length);
+  cartItems.forEach(function (cartItem) {
     itemsString +=
       '名称：' + cartItem.item.name +
       '，数量：' + cartItem.count + cartItem.item.unit +
