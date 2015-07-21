@@ -12,7 +12,7 @@ function printReceipt(barcodes) {
     '***<没钱赚商店>收据***\n' +
     getItemsString(cartItems , discountCartItems ) +
     '----------------------\n' + '挥泪赠送商品：\n' +
-    getDiscountItemString(discountCartItems) +
+    getDiscountItemString(discountCartItems , cartItems) +
     '----------------------\n'+
     '总计：' + formatPrice(getAmount(cartItems)-getDiscountAmount(discountCartItems ,cartItems)) + '(元)\n' +
     '节省：' + formatPrice(getDiscountAmount(discountCartItems ,cartItems)) + '(元)\n' +
@@ -101,12 +101,12 @@ function findDiscountItem(allItems , barcode){
   }
 }
 
-function getDiscountItemString(discountCartItems) {
+function getDiscountItemString(discountCartItems , cartItems) {
  var discountItemsString = '';
  discountCartItems.forEach(function (discountCartItem) {
  discountItemsString +=
  '名称：' + discountCartItem.name +
- '，数量：' + '1' + discountCartItem.unit + '\n';
+ '，数量：' + discountNumber(discountCartItem , cartItems) + discountCartItem.unit + '\n';
  });
   return discountItemsString;
  }
