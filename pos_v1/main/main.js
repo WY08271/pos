@@ -7,14 +7,15 @@ function printReceipt(barcodes) {
   var promotionsBarcodes = getPromotionsBarcodes(promotions);
   var discountCartItems = getDiscountCartItems(promotionsBarcodes , items);
 
+
   var receipt =
     '***<没钱赚商店>收据***\n' +
     getItemsString(cartItems , discountCartItems ) +
     '----------------------\n' + '挥泪赠送商品：\n' +
     getDiscountItemString(discountCartItems) +
     '----------------------\n'+
-    '总计：' + formatPrice(getAmount(cartItems)-getDiscountAmount(discountCartItems)) + '(元)\n' +
-    '节省：' + formatPrice(getDiscountAmount(discountCartItems)) + '(元)\n' +
+    '总计：' + formatPrice(getAmount(cartItems)-getDiscountAmount(discountCartItems ,cartItems)) + '(元)\n' +
+    '节省：' + formatPrice(getDiscountAmount(discountCartItems ,cartItems)) + '(元)\n' +
     '**********************';
   console.log(receipt);
 }
@@ -73,12 +74,23 @@ function getItems(barcodes,allItems) {
   return items;
 }
 
-function getDiscountAmount(discountCartItems) {
+function getDiscountAmount(discountCartItems ,cartItems) {
   var amount = 0;
   discountCartItems.forEach(function (discountCartItem) {
-    amount += getSubTotal( 1 , discountCartItem.price)
+    var number = discountNumber(discountCartItem ,cartItems);
+    amount += getSubTotal( number , discountCartItem.price)
   });
   return amount;
+}
+
+function discountNumber(discountCartItem ,cartItems) {
+  var number = 0;
+  for(var i = 0; i < cartItems.length; i ++) {
+    if (cartItems[i].item.barcode === discountCartItem.barcode) {
+      number = parseInt(cartItems[i].count / 3);
+    }
+  }
+  return number;
 }
 
 function findDiscountItem(allItems , barcode){
@@ -148,6 +160,7 @@ function getItemsString(cartItems , discountCartItems) {
         subTotal = getSubTotal(cartItem.count-1,cartItem.item.price);
       }
     });
+
     itemsString +=
       '名称：' + cartItem.item.name +
       '，数量：' + cartItem.count + cartItem.item.unit +
