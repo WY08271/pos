@@ -3,18 +3,11 @@ function printReceipt(barcodes) {
   var allItems = loadAllItems();
   var items = getItems(barcodes,allItems);
   var cartItems = getCartItems(items);
-
-
-
   var  promotions = loadPromotions();
+
   var promotionsBarcodes = promotions[0].barcodes;
-  var discountCartItems = [];
-  promotionsBarcodes.forEach( function( promotionsBarcode ) {
-    var discountCartItem = findDiscountItem( items , promotionsBarcode);
-    if( discountCartItem ) {
-      discountCartItems.push(discountCartItem);
-    }
-  });
+
+  var discountCartItems = getDiscountCartItems(promotionsBarcodes , items);
 
   var receipt =
     '***<没钱赚商店>收据***\n' +
@@ -26,6 +19,16 @@ function printReceipt(barcodes) {
     '节省：' + formatPrice(getDiscountAmount(discountCartItems)) + '(元)\n' +
     '**********************';
   console.log(receipt);
+}
+function getDiscountCartItems(promotionsBarcodes , items){
+  var discountCartItems = [];
+  promotionsBarcodes.forEach( function( promotionsBarcode ) {
+    var discountCartItem = findDiscountItem( items , promotionsBarcode);
+    if( discountCartItem ) {
+      discountCartItems.push(discountCartItem);
+    }
+  });
+  return discountCartItems;
 }
 
 function getCartItems(items) {
