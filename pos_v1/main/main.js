@@ -3,10 +3,8 @@ function printReceipt(barcodes) {
   var allItems = loadAllItems();
   var items = getItems(barcodes,allItems);
   var cartItems = getCartItems(items);
-  var  promotions = loadPromotions();
-
-  var promotionsBarcodes = promotions[0].barcodes;
-
+  var promotions = loadPromotions();
+  var promotionsBarcodes = getPromotionsBarcodes(promotions);
   var discountCartItems = getDiscountCartItems(promotionsBarcodes , items);
 
   var receipt =
@@ -20,6 +18,17 @@ function printReceipt(barcodes) {
     '**********************';
   console.log(receipt);
 }
+
+function getPromotionsBarcodes(promotions){
+  var barcodes = [];
+  promotions.forEach(function(promotion) {
+    if(promotion.type === 'BUY_TWO_GET_ONE_FREE') {
+      barcodes = promotion.barcodes;
+    }
+  });
+  return barcodes;
+}
+
 function getDiscountCartItems(promotionsBarcodes , items){
   var discountCartItems = [];
   promotionsBarcodes.forEach( function( promotionsBarcode ) {
