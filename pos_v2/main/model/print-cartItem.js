@@ -2,7 +2,7 @@ function PrintCartItems() {
 }
 
 
-PrintCartItems.prototype.currentTime = function() {
+/*PrintCartItems.prototype.currentTime = function() {
   var dateDigitToString = function(num) {
     return num < 10 ? '0' + num : num;
   };
@@ -17,7 +17,7 @@ PrintCartItems.prototype.currentTime = function() {
     formattedDateString = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
   return formattedDateString;
 };
-
+*/
 
 PrintCartItems.prototype.itemString = function(cartItems) {
 
@@ -80,9 +80,10 @@ function formatPrice(price) {
 }
 
 
-PrintCartItems.prototype.receipt = function(cartItems ) {
+PrintCartItems.prototype.receipt = function(cartItems ,nowTime) {
   var receipt = '***<没钱赚商店>收据***\n' +
-    '打印时间：' + this.currentTime() +
+    //'打印时间：' + this.currentTime() +
+    '打印时间：' + nowTime +
     '\n----------------------\n' +
     this.itemString(cartItems) +
     '----------------------\n' +

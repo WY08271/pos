@@ -5,6 +5,9 @@ function printReceipt(tags) {
   var discount = new discountCartItem();
   discount.promotionType(cartItems);
 
-  var receipt = new PrintCartItems().receipt(cartItems);
+  var time = new Time();
+  var nowTime = time.currentTime();
+
+  var receipt = new PrintCartItems().receipt(cartItems , nowTime);
   console.log(receipt);
 }
