@@ -1,9 +1,8 @@
-function Time () {
+function Utils () {
 
 }
 
-
-Time.prototype.currentTime = function() {
+Utils.prototype.currentTime = function() {
   var dateDigitToString = function(num) {
     return num < 10 ? '0' + num : num;
   };

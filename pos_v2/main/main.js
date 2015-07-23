@@ -1,13 +1,9 @@
-function printReceipt(tags) {
-  var cartItems = [];
-  cartItems = new CartItem().cartItemList(cartItems, tags);
+function PrinftReceipt (tags) {
 
-  var discount = new discountCartItem();
-  discount.promotionType(cartItems);
+  var pos = new Pos ();
+  pos.scanner(tags);
+  var carItems = pos.receipt();
 
-  var time = new Time();
-  var nowTime = time.currentTime();
 
-  var receipt = new PrintCartItems().receipt(cartItems , nowTime);
-  console.log(receipt);
+
 }
