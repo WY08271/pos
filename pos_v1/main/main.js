@@ -86,7 +86,7 @@ function discountNumber(discountCartItem ,cartItems) {
   var number = 0;
   for(var i = 0; i < cartItems.length; i ++) {
     if (cartItems[i].item.barcode === discountCartItem.barcode) {
-      number = parseInt(cartItems[i].count / 3);
+      number = Math.floor(cartItems[i].count / 3);
     }
   }
   return number;
