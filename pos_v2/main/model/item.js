@@ -4,6 +4,10 @@ function Item(barcode, name, unit, price) {
   this.unit = unit;
   this.price = price || 0.00;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3a6bde6446b9d4b063cec657a860b7c25997a67
 Item.prototype.find = function ( barcode ) {
 
   var allItems = this.getAllItems();

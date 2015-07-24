@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function Cart ( cartItems ) {
    this.cartItems = cartItems || [];
 }
@@ -45,3 +46,16 @@ Cart.prototype.getPromotion = function() {
 };
 
 
+=======
+function Cart () {
+
+}
+
+Cart.prototype.amount  = function (cartItems) {
+  var amount = 0;
+   for (var i = 0 ; i < cartItems.length; i++) {
+     amount += cartItems[i].count * cartItems[i].item.price;
+   }
+  return amount;
+}
+>>>>>>> c3a6bde6446b9d4b063cec657a860b7c25997a67
