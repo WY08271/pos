@@ -16,7 +16,8 @@ Receipt.prototype.receiptCartItems = function ( cartItems ) {
   var itemsString = '';
   var promotion = new Cart();
 
-  cartItems.forEach(function(cartItem) {
+  cartItems.forEach( function( cartItem ) {
+
     var discount = promotion.promotionType(cartItem);
 
     itemsString += '名称：' + cartItem.item.name +

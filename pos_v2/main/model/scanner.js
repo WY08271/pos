@@ -8,5 +8,6 @@ Scanner.prototype.scan = function (tag) {
 
   var item = new Item();
   var itemOne = item.findItem ( barcode );
+
   return ({item:itemOne , count: count});
 };
