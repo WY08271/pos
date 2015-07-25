@@ -13,7 +13,7 @@ Pos.prototype.scan = function (tag) {
 
   return this.cart.addCartItem(cartItem);
 
-}
+};
 
 
 Pos.prototype.receipt = function (cartItems) {
@@ -21,5 +21,5 @@ Pos.prototype.receipt = function (cartItems) {
   var print = new Receipt();
   return  print.receipt(cartItems);
 
-}
+};
 

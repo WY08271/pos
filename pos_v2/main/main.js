@@ -10,12 +10,15 @@ function printReceipt (tags) {
   for(var i = 0; i < tags.length; i++){
 
     var cartItem = scanner.scan(tags[i]);
-    console.log(cartItem);
-     // cart.addCartItem(cartItem);
-   // cartItems = pos.scan(tags[i]);
+
+     cart.addCartItem( cartItem , cartItems );
+    console.log( cartItems );
+
+
 
   }
 
-   pos.receipt(cartItems);
+   var print = pos.receipt(cartItems);
+  console.log(print);
 
 }

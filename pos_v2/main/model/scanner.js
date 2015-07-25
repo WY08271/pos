@@ -1,5 +1,5 @@
-function Scanner(tag){
-  this.tag = tag;
+function Scanner(){
+
 }
 Scanner.prototype.scan = function (tag) {
 

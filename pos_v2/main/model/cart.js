@@ -1,30 +1,32 @@
 function Cart ( cartItems ) {
-     this.cartItems = cartItems || [];
+  this.cartItems = cartItems;
   }
 
 
 
- Cart.prototype.addCartItem = function ( cartItem ) {
+ Cart.prototype.addCartItem = function ( cartItem , cartItems ) {
 
-     var index = this.findCartItem( cartItem.item.barcode , this.cartItems);
-     alert(cartItem.item.barcode );
+
+     var index = this.findCartItem( cartItem , cartItems);
+
       if(index) {
         index.count += cartItem.count;
       } else {
-        this.cartItems.push({item:cartItem.item , count : cartItem.count});
+        cartItems.push({item : cartItem.item , count : index.count});
       }
+
   };
 
 
-  Cart.prototype.findCartItem = function ( barcode , cartItems ) {
+  Cart.prototype.findCartItem = function ( cartItem , cartItems ) {
 
-   for(var i = 0; i < cartItems.length; i++) {
-       if(cartItems[i].item.barcode === barcode) {
+      for(var i = 0; i < cartItems.length; i++) {
+        if(cartItems[i].item.barcode === cartItem.barcode) {
 
-            return cartItems[i];
+          return cartItems[i];
 
-          }
       }
+    }
     };
 
   Cart.prototype.promotionType = function ( cartItem ){

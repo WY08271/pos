@@ -89,6 +89,6 @@ Receipt.prototype.receipt = function (cartItems) {
     '节省：' + formatPrice(this.discountamount(cartItems)) + '(元)\n' +
     '**********************';
 
-  console.log(printString);
+    return printString;
 
-}
+};
