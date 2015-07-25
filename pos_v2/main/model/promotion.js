@@ -3,9 +3,13 @@ function Promotion(type, barcodes) {
   this.barcodes = barcodes || [];
 }
 
-Promotion.prototype.promotionCalculate = function ( cartItem ,barcode ) {
-  if(cartItem.item.barcode === barcode) {
-    var number   = Math.floor(cartItem.count / 3);
-    return ({ barcode: cartItem.barcode , count : number , discountprice : (number * cartItem.price) });
+Promotion.prototype.promotionCalculate = function ( cartItem ,barcodes ) {
+  for(var i = 0; i < barcodes.length; i ++)
+  {
+    if(cartItem.item.barcode === barcodes[i]) {
+      var number   = Math.floor(cartItem.count / 3);
+      return ({ name: cartItem.item.name , count : number , discountprice : (number * cartItem.item.price) });
+    }
   }
+
 }

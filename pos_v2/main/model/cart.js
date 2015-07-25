@@ -1,49 +1,48 @@
-function Cart ( cartItems ) {
-  this.cartItems = cartItems;
+function Cart (  ) {
+  this.cartItems = [];
   }
 
 
 
- Cart.prototype.addCartItem = function ( cartItem , cartItems ) {
+ Cart.prototype.addCartItem = function ( cartItem ) {
 
-
-     var index = this.findCartItem( cartItem , cartItems);
+     var index = this.findCartItem( cartItem.item.barcode );
 
       if(index) {
         index.count += cartItem.count;
       } else {
-        cartItems.push({item : cartItem.item , count : index.count});
+        this.cartItems.push({item : cartItem.item , count : cartItem.count});
       }
-
   };
 
 
-  Cart.prototype.findCartItem = function ( cartItem , cartItems ) {
-
-      for(var i = 0; i < cartItems.length; i++) {
-        if(cartItems[i].item.barcode === cartItem.barcode) {
-
-          return cartItems[i];
-
-      }
+Cart.prototype.findCartItem = function (barcode) {
+  for(var i = 0; i < this.cartItems.length; i++) {
+    if(this.cartItems[i].item.barcode === barcode) {
+      return this.cartItems[i];
     }
-    };
+  }
+};
+
+
 
   Cart.prototype.promotionType = function ( cartItem ){
-
   var promotions = this.getPromotion();
     var promotion = new Promotion();
     var spreadprice = [];
 
       for(var i = 0; i < promotions.length; i++) {
        if(promotions[i].type === 'BUY_TWO_GET_ONE_FREE') {
-           spreadprice.push(promotion.promotionCalculate(cartItem , promotions[i].barcodes)) ;
+         var temp = promotion.promotionCalculate(cartItem , promotions[i].barcodes);
+         if(temp){
+          alert(temp);
+           spreadprice.push(temp) ;
+         }
        }
       }
+
     return spreadprice;
   };
-
-
 
       Cart.prototype.getPromotion = function() {
       return loadPromotions();
