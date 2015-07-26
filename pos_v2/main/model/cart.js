@@ -29,14 +29,15 @@ Cart.prototype.findCartItem = function (barcode) {
   Cart.prototype.promotionType = function ( cartItem ){
   var promotions = this.getPromotion();
     var promotion = new Promotion();
-    var spreadprice = [];
+    var spreadprice ;
 
       for(var i = 0; i < promotions.length; i++) {
        if(promotions[i].type === 'BUY_TWO_GET_ONE_FREE') {
          var temp = promotion.promotionCalculate(cartItem , promotions[i].barcodes);
+
          if(temp){
-          alert(temp);
-           spreadprice.push(temp) ;
+
+           spreadprice = temp ;
          }
        }
       }

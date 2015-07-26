@@ -19,8 +19,8 @@ Receipt.prototype.receiptCartItems = function ( cartItems ) {
   cartItems.forEach( function( cartItem ) {
     var discountprices = 0;
     var discount = promotion.promotionType(cartItem);
-    if(discount.length>0){
-      discountprices= discount[0].discountprice;
+    if(discount){
+      discountprices= discount.discountprice;
     }
     itemsString += '名称：' + cartItem.item.name +
       '，数量：' + cartItem.count + cartItem.item.unit +
@@ -40,12 +40,12 @@ Receipt.prototype.receiptDiscountCartItems = function (cartItems) {
 
   cartItems.forEach(function(cartItem) {
     var discount = promotion.promotionType(cartItem);
-if(discount.length>0)
-{
-  discountString += '名称：' + cartItem.item.name +
-    '，数量：' + discount[0].count + cartItem.item.unit + '\n';
+    if(discount)
+    {
+      discountString += '名称：' + cartItem.item.name +
+        '，数量：' + discount.count + cartItem.item.unit + '\n';
 
-  }});
+    }});
 
   return discountString;
 }
@@ -57,10 +57,10 @@ Receipt.prototype.amount = function(cartItems) {
   var promotion = new Cart();
 
   cartItems.forEach(function(cartItem) {
-   var discontprice = 0;
+    var discontprice = 0;
     var discount = promotion.promotionType(cartItem);
-    if(discount.length>0){
-     discontprice= discount[0].discountprice
+    if(discount){
+      discontprice= discount.discountprice
 
     }
     amount += (getSubTotal(cartItem.count , cartItem.item.price) - discontprice);
@@ -77,10 +77,10 @@ Receipt.prototype.discountamount = function(cartItems) {
 
   cartItems.forEach(function(cartItem) {
     var discount = promotion.promotionType(cartItem);
-if(discount.length>0){
-  discountamount += discount[0].count  *  cartItem.item.price;
+    if(discount){
+      discountamount += discount.count  *  cartItem.item.price;
 
-}
+    }
   });
 
   return discountamount;
@@ -104,6 +104,6 @@ Receipt.prototype.receipt = function (cartItems) {
     '节省：' + formatPrice(this.discountamount(cartItems)) + '(元)\n' +
     '**********************';
 
-    return printString;
+  return printString;
 
 };
